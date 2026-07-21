@@ -3,523 +3,191 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#8E2E6B" />
-<title>SpaceTime Drive — B2 cloud buckets, mounted in Finder</title>
-<meta name="description" content="A native macOS Finder extension that mounts your Backblaze B2 buckets like a hard drive. Built for post-production teams handing off media to producers, clients, and freelancers." />
+<meta name="theme-color" content="#0B0B1A" />
+<title>SpaceTime Drive 3.0 — Your studio's cloud, mounted in Finder</title>
+<meta name="description" content="SpaceTime Drive 3.0: a rebuilt-from-the-ground-up macOS drive for post-production. Instant folders from a local index, background uploads, per-user access, one-click updates." />
 
-<!-- Open Graph / Facebook / iMessage / Slack -->
+<!-- Open Graph / iMessage / Slack -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="SpaceTime Drive" />
-<meta property="og:title" content="SpaceTime Drive" />
-<meta property="og:description" content="B2 cloud buckets, mounted in Finder. A native macOS drive for post-production handoff." />
+<meta property="og:title" content="SpaceTime Drive 3.0" />
+<meta property="og:description" content="Your studio's cloud, mounted in Finder. Instant folders · background uploads · one-click updates." />
 <meta property="og:url" content="https://fraggleglam.github.io/spacetime-drive/" />
-<meta property="og:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-image.png" />
+<meta property="og:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-image.png?v=3" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="SpaceTime Drive — B2 cloud buckets, mounted in Finder" />
+<meta property="og:image:alt" content="SpaceTime Drive 3.0 — Your studio's cloud, mounted in Finder" />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="SpaceTime Drive" />
-<meta name="twitter:description" content="B2 cloud buckets, mounted in Finder. A native macOS drive for post-production handoff." />
-<meta name="twitter:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-image.png" />
+<meta name="twitter:title" content="SpaceTime Drive 3.0" />
+<meta name="twitter:description" content="Your studio's cloud, mounted in Finder. Instant folders · background uploads · one-click updates." />
+<meta name="twitter:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-image.png?v=3" />
 
-<!-- iOS / Apple -->
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+<!-- Apple -->
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=3" />
 <meta name="apple-mobile-web-app-title" content="SpaceTime Drive" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
 
 <!-- Favicons -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
-<link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=3" />
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=3" />
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png?v=3" />
 
 <style>
   :root {
-    --rose-deep: #8E2E6B;
-    --rose: #C04A8E;
-    --rose-soft: #E6B8D2;
-    --eggshell: #F5F1F0;
-    --surface: #EFEAEA;
-    --ink: #1B1320;
-    --ink-soft: #5A4A60;
-    --line: rgba(27, 19, 32, 0.08);
-    --shadow-soft: 0 1px 2px rgba(27, 19, 32, 0.06), 0 8px 32px rgba(142, 46, 107, 0.10);
-    --shadow-strong: 0 2px 6px rgba(27, 19, 32, 0.08), 0 24px 64px rgba(142, 46, 107, 0.18);
-    --radius-card: 18px;
-    --radius-btn: 12px;
+    --space-0: #0B0B1A;
+    --space-1: #14102A;
+    --space-2: #1E1440;
+    --violet: #9E6BF2;
+    --violet-bright: #B88CFF;
+    --violet-dim: rgba(158, 107, 242, 0.16);
+    --star: #EDE8FF;
+    --text: #F2EFFA;
+    --text-soft: #B9AEDC;
+    --text-faint: #7A6FA0;
+    --line: rgba(158, 107, 242, 0.22);
+    --radius: 18px;
   }
-
   * { box-sizing: border-box; }
-
   html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--eggshell);
-    color: var(--ink);
+    margin: 0; padding: 0;
+    background: var(--space-0);
+    color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 17px;
-    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
-
-  a { color: var(--rose-deep); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  .container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* HERO */
-  .hero {
-    position: relative;
-    overflow: hidden;
+  .sky {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(192, 74, 142, 0.18), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgba(142, 46, 107, 0.14), transparent 60%),
-      var(--eggshell);
-    padding: 96px 0 80px;
-    border-bottom: 1px solid var(--line);
+      radial-gradient(1200px 700px at 75% -10%, rgba(158,107,242,0.20), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(88,52,160,0.25), transparent 55%),
+      linear-gradient(160deg, var(--space-0), var(--space-1) 55%, var(--space-2));
+  }
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .7; }
+  main { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 64px 24px 80px; }
+
+  header.hero { text-align: center; padding-top: 24px; }
+  .hero img.mark { width: 148px; height: 148px; filter: drop-shadow(0 12px 48px rgba(158,107,242,0.45)); }
+  .hero h1 { font-size: clamp(40px, 7vw, 64px); font-weight: 800; letter-spacing: -0.02em; margin: 18px 0 6px; }
+  .hero h1 .v { color: var(--violet-bright); }
+  .hero p.tag { font-size: clamp(18px, 3vw, 23px); color: var(--text-soft); margin: 0 0 26px; font-weight: 500; }
+
+  .badge {
+    display: inline-block; margin-bottom: 30px;
+    padding: 8px 18px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--violet-dim);
+    color: var(--violet-bright); font-weight: 600; font-size: 14.5px; letter-spacing: 0.01em;
   }
 
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 48px;
-    align-items: center;
+  .cta { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  a.download {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: linear-gradient(180deg, #A97BF7, #8452E0);
+    color: white; text-decoration: none;
+    font-size: 19px; font-weight: 700;
+    padding: 16px 34px; border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(132, 82, 224, 0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+    transition: transform .12s ease, box-shadow .12s ease;
   }
-  @media (min-width: 860px) {
-    .hero-inner { grid-template-columns: 1.1fr 0.9fr; gap: 64px; }
+  a.download:hover { transform: translateY(-1px); box-shadow: 0 12px 40px rgba(132, 82, 224, 0.6), inset 0 1px 0 rgba(255,255,255,0.25); }
+  .cta .fine { color: var(--text-faint); font-size: 13.5px; }
+  .cta .updatenote {
+    color: var(--text-soft); font-size: 14.5px; max-width: 520px; line-height: 1.5;
+    border: 1px dashed var(--line); border-radius: 12px; padding: 10px 16px; background: rgba(158,107,242,0.06);
   }
+  .cta .updatenote b { color: var(--violet-bright); }
 
-  .app-icon {
-    width: 96px;
-    height: 96px;
-    border-radius: 22px;
-    box-shadow: var(--shadow-strong);
-    display: block;
-    margin-bottom: 28px;
+  section.features {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 16px; margin-top: 72px;
   }
+  .card {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: linear-gradient(180deg, rgba(158,107,242,0.08), rgba(158,107,242,0.02));
+    padding: 22px 20px;
+  }
+  .card .ico { font-size: 26px; }
+  .card h3 { margin: 10px 0 6px; font-size: 16.5px; font-weight: 700; }
+  .card p { margin: 0; color: var(--text-soft); font-size: 14px; line-height: 1.55; }
 
-  h1 {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    font-weight: 700;
-    margin: 0 0 20px;
-    color: var(--ink);
+  section.newera {
+    margin-top: 72px; text-align: center;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 34px 28px;
+    background: linear-gradient(180deg, rgba(158,107,242,0.10), rgba(30,20,64,0.4));
   }
+  .newera h2 { margin: 0 0 10px; font-size: 24px; letter-spacing: -0.01em; }
+  .newera p { margin: 0 auto; max-width: 640px; color: var(--text-soft); line-height: 1.65; font-size: 15.5px; }
 
-  .hero .lede {
-    font-size: clamp(18px, 1.8vw, 21px);
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 0 0 36px;
-    max-width: 36ch;
-  }
+  footer { margin-top: 72px; text-align: center; color: var(--text-faint); font-size: 13px; line-height: 1.8; }
+  footer a { color: var(--text-soft); text-decoration: none; }
 
-  .cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    align-items: center;
-    margin-bottom: 18px;
+  @media (max-width: 560px) {
+    main { padding-top: 40px; }
+    .hero img.mark { width: 116px; height: 116px; }
   }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 22px;
-    border-radius: var(--radius-btn);
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: -0.005em;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.06s ease, box-shadow 0.2s ease, background 0.2s ease;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
-    color: white;
-    box-shadow: 0 1px 2px rgba(142, 46, 107, 0.25), 0 8px 24px rgba(142, 46, 107, 0.28);
-  }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(142, 46, 107, 0.3), 0 14px 32px rgba(142, 46, 107, 0.32); text-decoration: none; }
-  .btn-primary:active { transform: translateY(0); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid var(--line);
-  }
-  .btn-ghost:hover { background: white; text-decoration: none; }
-
-  .meta-line {
-    margin-top: 10px;
-    color: var(--ink-soft);
-    font-size: 14px;
-  }
-  .meta-line .dot { opacity: 0.4; margin: 0 8px; }
-
-  .hero-art {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: var(--shadow-strong);
-    background: linear-gradient(135deg, var(--rose-deep), var(--rose));
-    aspect-ratio: 1200 / 630;
-  }
-  .hero-art img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-  }
-
-  /* SECTIONS */
-  section.band {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  section.band.surface { background: var(--surface); }
-
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--rose-deep);
-    margin: 0 0 12px;
-  }
-
-  h2 {
-    font-size: clamp(28px, 3.5vw, 36px);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    font-weight: 700;
-    margin: 0 0 16px;
-  }
-
-  .section-lede {
-    font-size: 18px;
-    color: var(--ink-soft);
-    max-width: 56ch;
-    margin: 0 0 48px;
-  }
-
-  /* FEATURES */
-  .features {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  @media (min-width: 720px) {
-    .features { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  .feature {
-    background: white;
-    border-radius: var(--radius-card);
-    padding: 28px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid var(--line);
-  }
-
-  .feature-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
-    margin-bottom: 18px;
-    color: white;
-  }
-  .feature h3 {
-    font-size: 18px;
-    margin: 0 0 8px;
-    letter-spacing: -0.01em;
-  }
-  .feature p {
-    font-size: 15px;
-    color: var(--ink-soft);
-    margin: 0;
-    line-height: 1.55;
-  }
-
-  /* INSTALL STEPS */
-  .steps {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    counter-reset: step;
-  }
-  @media (min-width: 720px) {
-    .steps { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .step {
-    position: relative;
-    background: white;
-    border-radius: var(--radius-card);
-    padding: 24px 24px 24px 72px;
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-soft);
-  }
-  .step::before {
-    counter-increment: step;
-    content: counter(step);
-    position: absolute;
-    left: 22px;
-    top: 22px;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
-    color: white;
-    font-weight: 700;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .step h4 {
-    margin: 0 0 6px;
-    font-size: 16px;
-    letter-spacing: -0.005em;
-  }
-  .step p {
-    margin: 0;
-    color: var(--ink-soft);
-    font-size: 15px;
-  }
-  .step code {
-    background: rgba(142, 46, 107, 0.08);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 14px;
-    color: var(--rose-deep);
-  }
-
-  /* REQUIREMENTS LIST */
-  .req-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    max-width: 640px;
-  }
-  @media (min-width: 600px) {
-    .req-list { grid-template-columns: 1fr 1fr; }
-  }
-  .req-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 10px;
-    background: white;
-    border: 1px solid var(--line);
-    color: var(--ink-soft);
-    font-size: 15px;
-  }
-  .req-list .check {
-    flex: 0 0 18px;
-    color: var(--rose-deep);
-    margin-top: 2px;
-  }
-  .req-list strong {
-    color: var(--ink);
-    display: block;
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-
-  /* CTA STRIP */
-  .cta-strip {
-    background:
-      radial-gradient(800px 400px at 80% 50%, rgba(192, 74, 142, 0.35), transparent 60%),
-      linear-gradient(135deg, var(--rose-deep) 0%, #6B1D52 100%);
-    color: white;
-    padding: 72px 0;
-    text-align: center;
-  }
-  .cta-strip h2 { color: white; margin-bottom: 14px; }
-  .cta-strip p {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 18px;
-    margin: 0 0 32px;
-  }
-  .cta-strip .btn-primary {
-    background: white;
-    color: var(--rose-deep);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 12px 32px rgba(0, 0, 0, 0.24);
-  }
-  .cta-strip .btn-primary:hover { color: var(--rose-deep); }
-
-  /* FOOTER */
-  footer {
-    padding: 36px 0;
-    color: var(--ink-soft);
-    font-size: 14px;
-    text-align: center;
-    background: var(--eggshell);
-  }
-  footer a { color: var(--ink-soft); }
-  footer a:hover { color: var(--rose-deep); }
-
-  /* UTIL */
-  .small { font-size: 14px; color: var(--ink-soft); }
-  .nowrap { white-space: nowrap; }
-
-  /* SVG icons inside features inherit stroke white */
-  .feature-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 </style>
 </head>
 <body>
+<div class="sky"></div>
+<svg class="stars" width="100%" height="100%" preserveAspectRatio="none">
+  <g fill="#EDE8FF">
+    <circle cx="8%" cy="12%" r="1.1"/><circle cx="17%" cy="34%" r="0.8"/><circle cx="26%" cy="8%" r="1.3"/>
+    <circle cx="33%" cy="52%" r="0.7"/><circle cx="41%" cy="21%" r="1.0"/><circle cx="48%" cy="70%" r="0.8"/>
+    <circle cx="55%" cy="15%" r="1.2"/><circle cx="63%" cy="44%" r="0.7"/><circle cx="71%" cy="9%" r="1.0"/>
+    <circle cx="78%" cy="60%" r="0.9"/><circle cx="85%" cy="27%" r="1.2"/><circle cx="92%" cy="49%" r="0.8"/>
+    <circle cx="12%" cy="78%" r="1.0"/><circle cx="29%" cy="88%" r="0.8"/><circle cx="58%" cy="90%" r="1.1"/>
+    <circle cx="74%" cy="81%" r="0.7"/><circle cx="90%" cy="86%" r="1.0"/><circle cx="4%" cy="55%" r="0.9"/>
+  </g>
+</svg>
 
-<header class="hero">
-  <div class="container hero-inner">
-    <div>
-      <img src="assets/icon-512.png" alt="SpaceTime Drive icon" class="app-icon" />
-      <h1>Cloud storage that mounts like a hard drive.</h1>
-      <p class="lede">SpaceTime Drive brings your Backblaze&nbsp;B2 buckets into Finder as native macOS drives. Built so post-production teams can hand off media to producers, clients, and freelancers without VPNs, FTP, or finicky sync apps.</p>
-
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/fraggleglam/spacetime-drive/releases/latest/download/SpaceTimeDrive.pkg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-          Download for Mac
-        </a>
-        <a class="btn btn-ghost" href="#install">How to install</a>
-      </div>
-      <div class="meta-line">
-        <span class="nowrap">v2.1.4</span>
-        <span class="dot">·</span>
-        <span class="nowrap">Universal (Apple Silicon + Intel)</span>
-        <span class="dot">·</span>
-        <span class="nowrap">Notarized · macOS 13+</span>
-      </div>
+<main>
+  <header class="hero">
+    <img class="mark" src="assets/icon-512.png?v=3" alt="SpaceTime Drive icon" />
+    <h1>SpaceTime Drive <span class="v">3.0</span></h1>
+    <p class="tag">Your studio's cloud, mounted in Finder.</p>
+    <div class="badge">All-new engine · rebuilt from the ground up</div>
+    <div class="cta">
+      <a class="download" href="https://github.com/fraggleglam/spacetime-drive/releases/download/v3.0.0/SpaceTimeDrive-3.0.0.dmg">
+        ⬇︎&nbsp; Download for Mac
+      </a>
+      <div class="fine">macOS 14 Sonoma or later · Apple silicon &amp; Intel · notarized by Apple</div>
+      <div class="updatenote"><b>Already running SpaceTime Drive?</b> You don't need this page — your app updates itself. Open it and click <b>Check for Updates…</b></div>
     </div>
+  </header>
 
-    <div class="hero-art">
-      <img src="assets/og-image.png" alt="SpaceTime Drive — B2 cloud buckets, mounted in Finder" loading="eager" />
+  <section class="features">
+    <div class="card">
+      <div class="ico">⚡️</div>
+      <h3>Folders open instantly</h3>
+      <p>Every listing is answered from a local index — even five-thousand-file media folders. The cloud is never in your click path.</p>
     </div>
-  </div>
-</header>
-
-<section class="band">
-  <div class="container">
-    <p class="eyebrow">What it does</p>
-    <h2>Cloud buckets that behave like local drives.</h2>
-    <p class="section-lede">Sign in once. Every workspace you have access to shows up in Finder as a drive on the Desktop. Open files directly. Drag them around. No sync folders to babysit.</p>
-
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8" cy="12" r="1.5" fill="currentColor"/><path d="M13 12h5"/></svg>
-        </div>
-        <h3>Mounts in Finder</h3>
-        <p>Each workspace appears as its own drive — browse, open, copy, rename. Files are pulled on demand so the drive is instantly browseable, even for multi-TB projects.</p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 0 0-3.95 3.35A4.5 4.5 0 0 0 8 16h11a4 4 0 0 0 .85-7.91A6 6 0 0 0 12 3z"/></svg>
-        </div>
-        <h3>Direct to&nbsp;B2</h3>
-        <p>Reads and writes straight to your Backblaze&nbsp;B2 bucket. No middle servers, no sync engine, no third-party storage. Your team's cloud, your team's data.</p>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <h3>Per-user access</h3>
-        <p>Admins see every workspace. Producers and freelancers only see what they've been granted — enforced in both the app and the Finder mount.</p>
-      </div>
+    <div class="card">
+      <div class="ico">📤</div>
+      <h3>Drop it and walk away</h3>
+      <p>Uploads and moves are journaled the instant you let go, then stream to the cloud in the background. Quit, crash, reboot — nothing is lost.</p>
     </div>
-  </div>
-</section>
-
-<section class="band surface" id="install">
-  <div class="container">
-    <p class="eyebrow">Getting started</p>
-    <h2>Install in under a minute.</h2>
-    <p class="section-lede">No kernel extensions, no Recovery Mode, no reboots. Run the installer, sign in, and your drives appear on the Desktop.</p>
-
-    <div class="steps">
-      <div class="step">
-        <h4>Download the installer</h4>
-        <p>Use the <strong>Download for Mac</strong> button at the top of the page. It's about 12&nbsp;MB.</p>
-      </div>
-      <div class="step">
-        <h4>Run SpaceTimeDrive.pkg</h4>
-        <p>Double-click the downloaded installer and follow the prompts. You'll enter your Mac password once — that's standard for apps that integrate with Finder.</p>
-      </div>
-      <div class="step">
-        <h4>Launch &amp; sign in</h4>
-        <p>Open SpaceTime Drive from Applications and sign in with the email your admin invited. Your assigned drives appear on the Desktop within a few seconds.</p>
-      </div>
-      <div class="step">
-        <h4>Open files like normal</h4>
-        <p>Drives behave like any other Finder volume. Double-click to open. Drag files to copy. <code>cmd + click</code> to reveal in Finder from the app.</p>
-      </div>
+    <div class="card">
+      <div class="ico">🔑</div>
+      <h3>Access you control</h3>
+      <p>Invite collaborators by email and choose exactly which drives they see. Lock a drive to make it browse-and-download only.</p>
     </div>
-  </div>
-</section>
+    <div class="card">
+      <div class="ico">🔄</div>
+      <h3>Updates itself</h3>
+      <p>One click installs new versions, verified and notarized. Install once — you're current forever.</p>
+    </div>
+  </section>
 
-<section class="band">
-  <div class="container">
-    <p class="eyebrow">System requirements</p>
-    <h2>What you'll need</h2>
-    <ul class="req-list">
-      <li>
-        <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span><strong>macOS 13 Ventura or later</strong>Works on macOS 13, 14, 15, and 16.</span>
-      </li>
-      <li>
-        <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span><strong>Apple Silicon or Intel</strong>Universal binary — one app, both architectures.</span>
-      </li>
-      <li>
-        <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span><strong>An invited account</strong>Your team's admin sets you up with an email and password.</span>
-      </li>
-      <li>
-        <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span><strong>An internet connection</strong>That's it — no kext, no FUSE, no Recovery Mode.</span>
-      </li>
-    </ul>
-  </div>
-</section>
+  <section class="newera">
+    <h2>Why 3.0 feels different</h2>
+    <p>Version 3 is a clean-sheet rebuild around one idea borrowed from the drives you already trust: keep a complete local map of your storage, treat every action as done the moment you make it, and let the network catch up quietly behind you. Same drives, same sign-in, same media — a whole new engine underneath.</p>
+  </section>
 
-<section class="cta-strip">
-  <div class="container">
-    <h2>Ready to mount your buckets?</h2>
-    <p>Notarized by Apple. Built by post-production folks for post-production folks.</p>
-    <a class="btn btn-primary" href="https://github.com/fraggleglam/spacetime-drive/releases/latest/download/SpaceTimeDrive.pkg">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-      Download SpaceTime Drive
-    </a>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p>© 2026 Alter Ego Films · Built on Backblaze&nbsp;B2 and macOS File&nbsp;Provider.</p>
-  </div>
-</footer>
-
+  <footer>
+    <div>Built for post-production · <a href="https://alteregofilms.com">Alter Ego Films</a></div>
+    <div>SpaceTime Drive 3.0.0 · <a href="appcast.xml">release feed</a></div>
+  </footer>
+</main>
 </body>
 </html>
