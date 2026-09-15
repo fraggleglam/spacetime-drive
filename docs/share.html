@@ -12,14 +12,16 @@
      the signed URL live in the #fragment, which preview robots never
      see — by design, that's what keeps them out of server logs — so
      every share unfurls as this one branded card.
-     Twitter block FIRST and a query-free image URL: the structure
-     GitHub uses, and the one Slack reliably renders as the LARGE card
-     (og-first got Slack's compact square-thumb layout, 2026-09-15). -->
-<meta name="twitter:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share.png">
+     Slack insists on its compact layout and CENTER-CROPS the image to
+     a square thumb, whatever twitter:card says (tested 2026-09-15) —
+     so og-share2.png is center-composed: mark, headline and button all
+     live inside the middle 630px. Slack's crop looks deliberate, and
+     iMessage still shows the full wide banner. -->
+<meta name="twitter:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share2.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Someone sent you a file">
 <meta name="twitter:description" content="Preview it right in your browser, download in one click. The link works for up to 7 days.">
-<meta property="og:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share.png">
+<meta property="og:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Someone sent you a file — SpaceTime Drive">
