@@ -11,20 +11,23 @@
 <!-- Link previews (iMessage, Slack, everywhere). The file's name and
      the signed URL live in the #fragment, which preview robots never
      see — by design, that's what keeps them out of server logs — so
-     every share unfurls as this one branded card. -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SpaceTime Drive">
-<meta property="og:title" content="Someone sent you a file">
-<meta property="og:description" content="Preview it right in your browser, download in one click. The link works for up to 7 days.">
-<meta property="og:url" content="https://fraggleglam.github.io/spacetime-drive/share.html">
-<meta property="og:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share.png?v=1">
+     every share unfurls as this one branded card.
+     Twitter block FIRST and a query-free image URL: the structure
+     GitHub uses, and the one Slack reliably renders as the LARGE card
+     (og-first got Slack's compact square-thumb layout, 2026-09-15). -->
+<meta name="twitter:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Someone sent you a file">
+<meta name="twitter:description" content="Preview it right in your browser, download in one click. The link works for up to 7 days.">
+<meta property="og:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Someone sent you a file — SpaceTime Drive">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Someone sent you a file">
-<meta name="twitter:description" content="Preview it in your browser, download in one click.">
-<meta name="twitter:image" content="https://fraggleglam.github.io/spacetime-drive/assets/og-share.png?v=1">
+<meta property="og:site_name" content="SpaceTime Drive">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Someone sent you a file">
+<meta property="og:url" content="https://fraggleglam.github.io/spacetime-drive/share.html">
+<meta property="og:description" content="Preview it right in your browser, download in one click. The link works for up to 7 days.">
 
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=31">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=31">
